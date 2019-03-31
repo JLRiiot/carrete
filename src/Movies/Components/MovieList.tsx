@@ -13,6 +13,7 @@ import {
   } from '@material-ui/core';
 import React, { Component, Fragment } from 'react';
 import { Movie } from '../State/StoreModel';
+import PosterCard from './PosterCard';
 
 const mocked = [
   {
@@ -59,7 +60,8 @@ const styles = (theme: Theme) =>
     text: {
       paddingTop: theme.spacing.unit * 2,
       paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2
+      paddingRight: theme.spacing.unit * 2,
+      textAlign: 'center'
     },
     list: { marginBottom: theme.spacing.unit * 2 },
     subHeader: {}
@@ -77,11 +79,12 @@ class MovieList extends Component<MovieListProps, MovieListState> {
     this.props.loadMovies(mocked);
   }
   renderMovies(movies: Movie[]) {
-    return movies.map(({ id, title, overview, video }) => (
-      <Fragment key={id}>
-        <ListItem button>
+    return movies.map((movie) => (
+      <Fragment key={movie.id}>
+        <PosterCard movie={movie} />
+        {/* <ListItem button>
           <ListItemText primary={title} secondary={overview} />
-        </ListItem>
+        </ListItem> */}
       </Fragment>
     ));
   }

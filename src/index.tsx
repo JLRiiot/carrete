@@ -10,7 +10,16 @@ import rootReducer from './Host/State/RootReducer';
 import PosterCard from './Movies/Components/PosterCard';
 import * as serviceWorker from './serviceWorker';
 
-const muiBaseTheme = createMuiTheme();
+const muiBaseTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#263238'
+    },
+    secondary: {
+      main: '#3949ab'
+    }
+  }
+});
 
 const theme = (muiBaseTheme: Theme) =>
   createMuiTheme({

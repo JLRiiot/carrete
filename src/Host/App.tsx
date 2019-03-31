@@ -34,7 +34,6 @@ function App(props: Props) {
       <CssBaseline />
       <Header />
       <Movies />
-      <PosterCard />
     </React.Fragment>
   );
 }

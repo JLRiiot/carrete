@@ -2,15 +2,25 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Icon,
+  IconButton,
   Link,
   Theme,
   Typography
   } from '@material-ui/core';
-import { CardClassKey } from '@material-ui/core/Card';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React, { Component } from 'react';
+import { WithTheme } from 'react-jss';
+import { Movie } from '../State/StoreModel';
 
-export default class PosterCard extends Component {
+export interface PosterCardProps {
+  movie: Movie;
+}
+
+type PosterCardState = {};
+
+export default class PosterCard extends Component<PosterCardProps, PosterCardState> {
   static getThemeOverride(baseTheme: Theme): { MuiCard: Partial<Record<'root', CSSProperties>> } {
     return {
       MuiCard: {
@@ -18,6 +28,7 @@ export default class PosterCard extends Component {
           '&.MuiNewsCard--02': {
             maxWidth: 304,
             margin: 'auto',
+            marginBottom: baseTheme.spacing.unit * 3,
             position: 'relative',
             transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
             boxShadow: '0 16px 40px -12.125px rgba(0,0,0,0.3)',
@@ -30,15 +41,20 @@ export default class PosterCard extends Component {
             '& button': {
               marginLeft: 0
             },
+            '& .MuiIconButton-root': {
+              padding: baseTheme.spacing.unit
+            },
             '& .MuiCardMedia-root': {
               height: '100%'
             },
             '& .MuiCardContent-root': {
               position: 'absolute',
+              height: '100%',
               bottom: 0,
               padding: baseTheme.spacing.unit * 3,
               color: baseTheme.palette.common.white,
-              textAlign: 'center',
+              backgroundColor: fade(baseTheme.palette.primary.dark, 0.85),
+              textAlign: 'left',
               '& .MuiTypography--subheading': {
                 lineHeight: 1.8,
                 letterSpacing: 0.5,
@@ -56,20 +72,24 @@ export default class PosterCard extends Component {
     };
   }
   render() {
+    let { movie } = this.props;
     return (
       <Card className={'MuiNewsCard--02'}>
         <CardMedia
           component={'img'}
           className={'MuiCardMedia-root'}
-          src={` http://image.tmdb.org/t/p/w500/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg`}
+          src={` http://image.tmdb.org/t/p/w500${movie.poster_path}`}
         />
         <CardContent className={'MuiCardContent-root'}>
           <Typography className={'MuiTypography--heading'} color={'inherit'} variant={'h3'} gutterBottom>
-            Space
+            {movie.title}
           </Typography>
           <Typography className={'MuiTypography--subheading'} color={'inherit'}>
-            The space between the stars and galaxies is largely empty.
+            {movie.overview}
           </Typography>
+          <IconButton className={'MuiIconButton-root'} color={'inherit'}>
+            <Icon>favorite</Icon>
+          </IconButton>
           <Typography className={'MuiTypography--explore'} color={'inherit'} variant={'caption'}>
             <Link color={'inherit'} underline={'none'}>
               EXPLORE
