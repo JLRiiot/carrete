@@ -45,9 +45,6 @@ class Header extends Component<HeaderProps, HeaderState> {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Carrete
-            </Typography>
             <BrowseField />
           </Toolbar>
         </AppBar>

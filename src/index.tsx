@@ -1,3 +1,4 @@
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,6 +9,16 @@ import App from './Host/App';
 import rootReducer from './Host/State/RootReducer';
 import * as serviceWorker from './serviceWorker';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#263238'
+    },
+    secondary: {
+      main: '#3949ab'
+    }
+  }
+});
 let store = createStore(rootReducer, applyMiddleware(thunk));
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -16,7 +27,9 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 );
