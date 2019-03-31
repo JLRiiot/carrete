@@ -23,37 +23,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import Header from '../Header/Components/Header';
+import PosterCard from '../Movies/Components/PosterCard';
 import Movies from '../Movies/Containers/Movies';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    text: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2
-    },
-    paper: {
-      paddingBottom: 50
-    },
-    list: {
-      marginBottom: theme.spacing.unit * 2
-    },
-    subHeader: {
-      backgroundColor: theme.palette.background.paper
-    }
-  });
-
-export interface Props extends WithStyles<typeof styles> {}
+export interface Props {}
 
 function App(props: Props) {
-  const { classes } = props;
   return (
     <React.Fragment>
       <CssBaseline />
       <Header />
       <Movies />
+      <PosterCard />
     </React.Fragment>
   );
 }
 
-export default withStyles(styles)(App);
+export default App;

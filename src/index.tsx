@@ -1,4 +1,4 @@
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,18 +7,26 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import App from './Host/App';
 import rootReducer from './Host/State/RootReducer';
+import PosterCard from './Movies/Components/PosterCard';
 import * as serviceWorker from './serviceWorker';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#263238'
+const muiBaseTheme = createMuiTheme();
+
+const theme = (muiBaseTheme: Theme) =>
+  createMuiTheme({
+    palette: {
+      primary: {
+        main: '#263238'
+      },
+      secondary: {
+        main: '#3949ab'
+      }
     },
-    secondary: {
-      main: '#3949ab'
+    overrides: {
+      ...PosterCard.getThemeOverride(muiBaseTheme)
     }
-  }
-});
+  });
+
 let store = createStore(rootReducer, applyMiddleware(thunk));
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -27,7 +35,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme(muiBaseTheme)}>
       <App />
     </MuiThemeProvider>
   </Provider>,
