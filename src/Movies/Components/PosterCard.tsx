@@ -16,6 +16,8 @@ import { Movie } from '../State/StoreModel';
 
 export interface PosterCardProps {
   movie: Movie;
+  favoritesIDsHack: number[];
+  addFavorite(id: number): void;
 }
 
 type PosterCardState = {};
@@ -71,8 +73,24 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
       }
     };
   }
+
+  //TODO: Implement a good logic here to prevent innecessary re-renders
+  // shouldComponentUpdate(nextProps: PosterCardProps, nextState: PosterCardState) {
+  //   let prevHack = this.props.favoritesIDsHack;
+  //   let nextHack = this.props.favoritesIDsHack;
+
+  //   console.log(prevHack.indexOf(this.props.movie.id));
+  //   console.log(nextHack.indexOf(this.props.movie.id));
+
+  //   return (
+  //     this.props.movie.id !== nextProps.movie.id ||
+  //     (this.props.movie.id === nextProps.movie.id &&
+  //       prevHack.indexOf(this.props.movie.id) !== nextHack.indexOf(this.props.movie.id))
+  //   );
+  // }
+
   render() {
-    let { movie } = this.props;
+    let { movie, favoritesIDsHack } = this.props;
     return (
       <Card className={'MuiNewsCard--02'}>
         <CardMedia
@@ -87,12 +105,16 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
           <Typography className={'MuiTypography--subheading'} color={'inherit'}>
             {_.truncate(movie.overview, { length: 150 })}
           </Typography>
-          <IconButton className={'MuiIconButton-root'} color={'inherit'}>
+          <IconButton
+            className={'MuiIconButton-root'}
+            color={favoritesIDsHack.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
+            onClick={() => this.props.addFavorite(movie.id)}
+          >
             <Icon>favorite</Icon>
           </IconButton>
           <Typography className={'MuiTypography--explore'} color={'inherit'} variant={'caption'}>
             <Link color={'inherit'} underline={'none'}>
-              EXPLORE
+              Watch later >>
             </Link>
           </Typography>
         </CardContent>

@@ -17,4 +17,5 @@ export interface Movie {
 
 export interface MoviesStore {
   movies: Movie[];
+  favoritesIDsHack: number[];
 }

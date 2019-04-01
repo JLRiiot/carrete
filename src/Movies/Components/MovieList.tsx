@@ -12,8 +12,8 @@ import {
   withStyles
   } from '@material-ui/core';
 import React, { Component, Fragment } from 'react';
+import PosterCard from '../Containers/Poster';
 import { Movie } from '../State/StoreModel';
-import PosterCard from './PosterCard';
 
 const mocked = [
   {
