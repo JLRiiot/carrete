@@ -7,7 +7,8 @@ import {
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { Component } from 'react';
+import * as _ from 'lodash';
+import React, { ChangeEvent, Component } from 'react';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -57,9 +58,21 @@ const styles = (theme: Theme) =>
     }
   });
 
-export interface BrowseFieldProps extends WithStyles<typeof styles> {}
+export interface BrowseFieldProps extends WithStyles<typeof styles> {
+  handleSearch: Function;
+  search: string;
+}
 interface BrowseFieldState {}
+
 class BrowseField extends Component<BrowseFieldProps, BrowseFieldState> {
+  constructor(props: BrowseFieldProps) {
+    super(props);
+  }
+
+  delayedSearch = _.debounce((value: string) => this.props.handleSearch(value), 300);
+
+  handleSearch = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => this.delayedSearch(event.target.value);
+
   render() {
     let { classes } = this.props;
     return (
@@ -75,6 +88,7 @@ class BrowseField extends Component<BrowseFieldProps, BrowseFieldState> {
               root: classes.inputRoot,
               input: classes.inputInput
             }}
+            onChange={this.handleSearch.bind(this)}
           />
         </div>
       </React.Fragment>

@@ -22,9 +22,9 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import SearchIcon from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
-import Header from '../Header/Components/Header';
-import PosterCard from '../Movies/Components/PosterCard';
-import Movies from '../Movies/Containers/Movies';
+import Header from '../../Header/Components/Header';
+import PosterCard from '../../Movies/Components/PosterCard';
+import Movies from '../../Movies/Containers/Movies';
 
 export interface Props {}
 

@@ -75,16 +75,11 @@ export interface MovieListProps extends WithStyles<typeof styles> {
 interface MovieListState {}
 
 class MovieList extends Component<MovieListProps, MovieListState> {
-  componentDidMount() {
-    this.props.loadMovies(mocked);
-  }
+  componentDidMount() {}
   renderMovies(movies: Movie[]) {
     return movies.map((movie) => (
       <Fragment key={movie.id}>
         <PosterCard movie={movie} />
-        {/* <ListItem button>
-          <ListItemText primary={title} secondary={overview} />
-        </ListItem> */}
       </Fragment>
     ));
   }

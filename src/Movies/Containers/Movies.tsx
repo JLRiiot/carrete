@@ -8,7 +8,6 @@ type StateProps = Pick<MovieListProps, 'movies'>;
 type DispatchProps = Pick<MovieListProps, 'loadMovies'>;
 
 const mapStateToProps = ({ moviesReducer }: { moviesReducer: MoviesStore }): StateProps => {
-  console.log(moviesReducer);
   return {
     movies: moviesReducer.movies
   };

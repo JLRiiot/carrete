@@ -12,7 +12,7 @@ export interface Movie {
   backdrop_path: string;
   adult: boolean;
   overview: string;
-  release_date: Date;
+  release_date: string;
 }
 
 export interface MoviesStore {

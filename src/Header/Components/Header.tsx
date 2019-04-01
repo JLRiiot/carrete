@@ -1,19 +1,15 @@
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
 import {
   createStyles,
   Theme,
   withStyles,
   WithStyles
   } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import React, { Component } from 'react';
-import BrowseField from '../../Browse/Components/BrowseField';
+import BrowseField from '../../Browse/Containers/Browse';
 
 const styles = (theme: Theme) =>
   createStyles({

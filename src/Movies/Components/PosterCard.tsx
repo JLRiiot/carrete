@@ -11,7 +11,6 @@ import {
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import React, { Component } from 'react';
-import { WithTheme } from 'react-jss';
 import { Movie } from '../State/StoreModel';
 
 export interface PosterCardProps {

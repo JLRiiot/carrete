@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import App from './Host/App';
+import * as dependencyInjectionContainer from './Host/Application/DependencyInjection';
+import App from './Host/Components/App';
 import rootReducer from './Host/State/RootReducer';
 import PosterCard from './Movies/Components/PosterCard';
 import * as serviceWorker from './serviceWorker';
@@ -18,6 +19,9 @@ const muiBaseTheme = createMuiTheme({
     secondary: {
       main: '#3949ab'
     }
+  },
+  typography: {
+    useNextVariants: true
   }
 });
 
@@ -31,6 +35,9 @@ const theme = (muiBaseTheme: Theme) =>
         main: '#3949ab'
       }
     },
+    typography: {
+      useNextVariants: true
+    },
     overrides: {
       ...PosterCard.getThemeOverride(muiBaseTheme)
     }
@@ -39,7 +46,10 @@ const theme = (muiBaseTheme: Theme) =>
 let store = createStore(rootReducer, applyMiddleware(thunk));
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-  store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+  store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk.withExtraArgument({ container: dependencyInjectionContainer })))
+  );
 }
 
 ReactDOM.render(
