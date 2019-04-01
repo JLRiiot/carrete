@@ -10,6 +10,7 @@ import {
   } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import * as _ from 'lodash';
 import React, { Component } from 'react';
 import { Movie } from '../State/StoreModel';
 
@@ -81,10 +82,10 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
         />
         <CardContent className={'MuiCardContent-root'}>
           <Typography className={'MuiTypography--heading'} color={'inherit'} variant={'h3'} gutterBottom>
-            {movie.title}
+            {_.truncate(movie.title, { length: 20 })}
           </Typography>
           <Typography className={'MuiTypography--subheading'} color={'inherit'}>
-            {movie.overview}
+            {_.truncate(movie.overview, { length: 150 })}
           </Typography>
           <IconButton className={'MuiIconButton-root'} color={'inherit'}>
             <Icon>favorite</Icon>
