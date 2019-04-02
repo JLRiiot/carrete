@@ -1,8 +1,7 @@
-import React from 'react';
-import App from './App';
+import Header from './Header';
 
 it('renders the right components', () => {
-  let wrapper = shallow(<App />);
+  let wrapper = shallow(<Header />);
 
   expect(wrapper).toMatchSnapshot();
 });

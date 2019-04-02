@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the right components 1`] = `
+<Header
+  classes={
+    Object {
+      "menuButton": "Header-menuButton-2",
+      "root": "Header-root-1",
+      "title": "Header-title-3",
+    }
+  }
+/>
+`;
