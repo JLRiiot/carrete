@@ -7,7 +7,7 @@ import {
   } from './Events';
 import { MoviesStore } from './StoreModel';
 
-const defaultState: MoviesStore = {
+export const defaultState: MoviesStore = {
   movies: [],
   favoritesIDsHack: []
 };
