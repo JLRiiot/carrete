@@ -10,6 +10,8 @@ import {
 import React, { Component, Fragment } from 'react';
 import PosterCard from '../Containers/Poster';
 import { Movie } from '../State/StoreModel';
+import ListLayout from './ListLayout';
+import NoResults from './NoResults';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -49,9 +51,9 @@ class MovieList extends Component<MovieListProps, MovieListState> {
       <Fragment>
         <Paper square className={classes.paper}>
           <Typography className={classes.text} variant="h5" gutterBottom>
-            Carrete
+            The Carrete
           </Typography>
-          <List className={classes.list}>{this.renderMovies(movies)}</List>
+          {movies && movies.length ? <ListLayout>{this.renderMovies(movies)}</ListLayout> : <NoResults />}
         </Paper>
       </Fragment>
     );
