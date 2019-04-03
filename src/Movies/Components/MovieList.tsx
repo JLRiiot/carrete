@@ -16,16 +16,27 @@ import NoResults from './NoResults';
 const styles = (theme: Theme) =>
   createStyles({
     paper: {
-      paddingTop: 60
+      [theme.breakpoints.up('sm')]: {
+        paddingTop: theme.spacing.unit
+      }
     },
     text: {
       paddingTop: theme.spacing.unit * 2,
       paddingLeft: theme.spacing.unit * 2,
       paddingRight: theme.spacing.unit * 2,
-      textAlign: 'center'
+      textAlign: 'center',
+      [theme.breakpoints.up('sm')]: {
+        display: 'none'
+      }
     },
-    list: { marginBottom: theme.spacing.unit * 2 },
-    subHeader: {}
+    list: {
+      marginBottom: theme.spacing.unit * 2
+    },
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing.unit * 3
+    }
   });
 
 export interface MovieListProps extends WithStyles<typeof styles> {
@@ -51,7 +62,8 @@ class MovieList extends Component<MovieListProps, MovieListState> {
   render() {
     let { classes, movies, dirty } = this.props;
     return (
-      <Fragment>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
         <Paper square className={classes.paper}>
           <Typography className={classes.text} variant="h5" gutterBottom>
             The Carrete
@@ -59,7 +71,7 @@ class MovieList extends Component<MovieListProps, MovieListState> {
           {dirty && movies && !movies.length && <NoResults />}
           {movies && movies.length > 0 && <ListLayout>{this.renderMovies(movies)}</ListLayout>}
         </Paper>
-      </Fragment>
+      </main>
     );
   }
 }

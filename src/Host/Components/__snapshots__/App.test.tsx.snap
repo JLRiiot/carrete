@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders the right components 1`] = `
-<Fragment>
-  <WithStyles(CssBaseline) />
-  <WithStyles(Header) />
-  <Connect(WithStyles(MovieList)) />
-</Fragment>
+<App
+  classes={
+    Object {
+      "root": "App-root-1",
+    }
+  }
+/>
 `;

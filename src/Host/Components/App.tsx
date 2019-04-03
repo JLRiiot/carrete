@@ -1,18 +1,31 @@
+import {
+  createStyles,
+  Theme,
+  WithStyles,
+  withStyles
+  } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import React, { Fragment } from 'react';
+import React from 'react';
 import Header from '../../Header/Components/Header';
 import Movies from '../../Movies/Containers/Movies';
 
-export interface Props {}
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex'
+    }
+  });
+export interface Props extends WithStyles<typeof styles> {}
 
 function App(props: Props) {
+  let { classes } = props;
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <CssBaseline />
       <Header />
       <Movies />
-    </React.Fragment>
+    </div>
   );
 }
 
-export default App;
+export default withStyles(styles)(App);

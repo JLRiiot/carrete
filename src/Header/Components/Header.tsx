@@ -1,3 +1,13 @@
+import {
+  Divider,
+  Drawer,
+  Hidden,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Typography
+  } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import {
@@ -6,19 +16,54 @@ import {
   withStyles,
   WithStyles
   } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import Toolbar from '@material-ui/core/Toolbar';
+import Favorite from '@material-ui/icons/Favorite';
 import MenuIcon from '@material-ui/icons/Menu';
+import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, { Component } from 'react';
 import BrowseField from '../../Browse/Containers/Browse';
 
+const drawerWidth = 240;
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      width: '100%'
+      backgroundColor: fade(theme.palette.primary.main, 1),
+      height: '100%'
+    },
+    appBar: {
+      marginLeft: drawerWidth,
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidth}px)`
+      }
+    },
+    drawer: {
+      [theme.breakpoints.up('sm')]: {
+        width: drawerWidth,
+        flexShrink: 0
+      }
+    },
+    menuItem: {
+      color: theme.palette.common.white,
+      height: 24,
+      boxSizing: 'content-box',
+      width: 'auto',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      '&$selected': {}
     },
     menuButton: {
-      marginLeft: -12,
-      marginRight: 20
+      [theme.breakpoints.up('sm')]: {
+        display: 'none'
+      }
+    },
+    toolbar: {
+      backgroundColor: fade(theme.palette.primary.main, 1),
+      paddingLeft: 0,
+      ...theme.mixins.toolbar
+    },
+    drawerPaper: {
+      width: drawerWidth
     },
     title: {
       display: 'none',
@@ -28,25 +73,88 @@ const styles = (theme: Theme) =>
     }
   });
 
-export interface HeaderProps extends WithStyles<typeof styles> {}
-interface HeaderState {}
+export interface HeaderProps extends WithStyles<typeof styles, true> {}
+interface HeaderState {
+  mobileOpen: boolean;
+}
 
 class Header extends Component<HeaderProps, HeaderState> {
-  render() {
-    const { classes } = this.props;
+  constructor(props: HeaderProps) {
+    super(props);
+    this.state = { mobileOpen: false };
+  }
+
+  handleDrawerToggle = () => {
+    this.setState((state) => ({ mobileOpen: !state.mobileOpen }));
+  };
+  drawer() {
+    let { classes, theme } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="fixed">
+        <div className={classes.toolbar} />
+        <Divider />
+        <List>
+          {['Favorites', 'Watch later'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon className={classes.menuItem}>
+                {index % 2 === 0 ? <Favorite /> : <PlaylistPlay />}
+              </ListItemIcon>
+              <ListItemText>
+                <Typography className={classes.menuItem}>{text}</Typography>
+              </ListItemText>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </div>
+    );
+  }
+  render() {
+    const { classes, theme } = this.props;
+    return (
+      <div>
+        <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
+            >
               <MenuIcon />
             </IconButton>
             <BrowseField />
           </Toolbar>
         </AppBar>
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="css">
+            <Drawer
+              variant="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper
+              }}
+            >
+              {this.drawer()}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper
+              }}
+              variant="permanent"
+              open
+            >
+              {this.drawer()}
+            </Drawer>
+          </Hidden>
+        </nav>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Header);
+export default withStyles(styles, { withTheme: true })(Header);
