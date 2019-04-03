@@ -30,13 +30,16 @@ const styles = (theme: Theme) =>
 
 export interface MovieListProps extends WithStyles<typeof styles> {
   movies: Movie[];
-  loadMovies: Function;
+  dirty: boolean;
+  loadTrending: Function;
 }
 
 interface MovieListState {}
 
 class MovieList extends Component<MovieListProps, MovieListState> {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.loadTrending();
+  }
   renderMovies(movies: Movie[]) {
     return movies.map((movie) => (
       <Fragment key={movie.id}>
@@ -46,14 +49,15 @@ class MovieList extends Component<MovieListProps, MovieListState> {
   }
 
   render() {
-    let { classes, movies } = this.props;
+    let { classes, movies, dirty } = this.props;
     return (
       <Fragment>
         <Paper square className={classes.paper}>
           <Typography className={classes.text} variant="h5" gutterBottom>
             The Carrete
           </Typography>
-          {movies && movies.length ? <ListLayout>{this.renderMovies(movies)}</ListLayout> : <NoResults />}
+          {dirty && movies && !movies.length && <NoResults />}
+          {movies && movies.length > 0 && <ListLayout>{this.renderMovies(movies)}</ListLayout>}
         </Paper>
       </Fragment>
     );

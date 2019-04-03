@@ -2,8 +2,9 @@ import { BrowseActions } from './Actions';
 import { SET_SEARCH } from './Events';
 import { BrowseStore } from './StoreModel';
 
-const defaultState = {
-  search: ''
+const defaultState: BrowseStore = {
+  search: '',
+  dirty: false
 };
 
 export const browseReducer = (state: BrowseStore = defaultState, action: BrowseActions): BrowseStore => {
@@ -11,7 +12,8 @@ export const browseReducer = (state: BrowseStore = defaultState, action: BrowseA
     case SET_SEARCH:
       return {
         ...state,
-        search: action.payload
+        search: action.payload,
+        dirty: true
       };
 
     default:

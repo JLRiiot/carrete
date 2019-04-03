@@ -43,9 +43,6 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
             '& button': {
               marginLeft: 0
             },
-            '& .MuiIconButton-root': {
-              padding: baseTheme.spacing.unit
-            },
             '& .MuiCardMedia-root': {
               height: '100%'
             },
@@ -56,7 +53,10 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
               padding: baseTheme.spacing.unit * 3,
               color: baseTheme.palette.common.white,
               backgroundColor: fade(baseTheme.palette.primary.dark, 0.85),
-              textAlign: 'left',
+              textAlign: 'center',
+              '& .MuiIconButton-root': {
+                padding: baseTheme.spacing.unit
+              },
               '& .MuiTypography--subheading': {
                 lineHeight: 1.8,
                 letterSpacing: 0.5,
@@ -105,16 +105,16 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
           <Typography className={'MuiTypography--subheading'} color={'inherit'}>
             {_.truncate(movie.overview, { length: 150 })}
           </Typography>
-          <IconButton
-            className={'MuiIconButton-root'}
-            color={favoritesIDsHack.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
-            onClick={() => this.props.addFavorite(movie.id)}
-          >
-            <Icon>favorite</Icon>
-          </IconButton>
           <Typography className={'MuiTypography--explore'} color={'inherit'} variant={'caption'}>
+            <IconButton
+              className={'MuiIconButton-root'}
+              color={favoritesIDsHack.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
+              onClick={() => this.props.addFavorite(movie.id)}
+            >
+              <Icon>favorite</Icon>
+            </IconButton>
             <Link color={'inherit'} underline={'none'}>
-              Watch later >>
+              {'<< Watch later >>'}
             </Link>
           </Typography>
         </CardContent>

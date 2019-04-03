@@ -1,20 +1,29 @@
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { BrowseStore } from '../../Browse/State/StoreModel';
 import MovieList, { MovieListProps } from '../Components/MovieList';
-import { loadMovies } from '../State/Actions';
+import { loadTrending } from '../State/Actions';
 import { Movie, MoviesStore } from '../State/StoreModel';
 
-type StateProps = Pick<MovieListProps, 'movies'>;
-type DispatchProps = Pick<MovieListProps, 'loadMovies'>;
+type StateProps = Pick<MovieListProps, 'movies' | 'dirty'>;
+type DispatchProps = Pick<MovieListProps, 'loadTrending'>;
 
-const mapStateToProps = ({ moviesReducer }: { moviesReducer: MoviesStore }): StateProps => {
+const mapStateToProps = ({
+  moviesReducer,
+  browseReducer
+}: {
+  moviesReducer: MoviesStore;
+  browseReducer: BrowseStore;
+}): StateProps => {
   return {
-    movies: moviesReducer.movies
+    movies: moviesReducer.movies,
+    dirty: browseReducer.dirty
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  loadMovies: (movies: Movie[]) => dispatch(loadMovies(movies))
+const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
+  loadTrending: () => dispatch(loadTrending())
 });
 
 export default connect(

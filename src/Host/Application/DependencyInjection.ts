@@ -1,10 +1,10 @@
 import createGetMovies from '../../Movies/Application/GetMovies';
-import * as searchApi from '../../Movies/Infrastructure/MovieApi';
+import createGetTrending from '../../Movies/Application/GetTrending';
+import { movieApi } from '../../Movies/Infrastructure/MovieApi';
 import { Movie } from '../../Movies/State/StoreModel';
 
-const getMovies = createGetMovies({ api: searchApi });
+const getMovies = createGetMovies({ api: movieApi });
+const getTrending = createGetTrending({ api: movieApi });
 
-export interface DependencyInjectionContainer {
-  getMovies(search: string, page?: number): Promise<Movie[]>;
-}
-export { getMovies };
+export const dependencyInjectionContainer = { getMovies, getTrending };
+export type DependencyInjectionContainer = typeof dependencyInjectionContainer;

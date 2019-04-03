@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import * as dependencyInjectionContainer from './Host/Application/DependencyInjection';
+import { dependencyInjectionContainer } from './Host/Application/DependencyInjection';
 import App from './Host/Components/App';
 import rootReducer from './Host/State/RootReducer';
 import PosterCard from './Movies/Components/PosterCard';

@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux';
+import { DependencyInjectionContainer } from '../../Host/Application/DependencyInjection';
 import {
   ADD_FAVORITE,
   CLEAR_MOVIES,
@@ -38,5 +40,16 @@ export const addFavorite = (id: number) => ({
   type: ADD_FAVORITE,
   payload: id
 });
+
+export const loadTrending = () => (
+  dispatch: Dispatch,
+  getState: Function,
+  { container }: { container: DependencyInjectionContainer }
+) => {
+  container
+    .getTrending()
+    .then((result: any) => dispatch(loadMovies(result.results)))
+    .catch((error) => console.log(error));
+};
 
 export type MovieActions = LoadMovies | ClearMovies | AddFavorite | RemoveFavorite;

@@ -10,6 +10,13 @@ const search = async (search: string, page: number = 1): Promise<Movie[]> => {
   return Promise.resolve(result);
 };
 
+const getTrending = async (): Promise<Movie[]> => {
+  const qs = { ...defaultQs };
+  let result = await http<Movie[]>(`https://api.themoviedb.org/3/trending/all/day?${getParams(qs)}`);
+
+  return result;
+};
+
 const http = <T>(request: RequestInfo): Promise<T> => {
   return new Promise((resolve) => {
     fetch(request)
@@ -29,7 +36,5 @@ const getParams = (queryParams: any) =>
     []
   ).join('&');
 
-export interface MovieApi {
-  search(search: string, page: number): Promise<Movie[]>;
-}
-export { search };
+export const movieApi = { search, getTrending };
+export type MovieApi = typeof movieApi;
