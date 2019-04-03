@@ -22,6 +22,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import MenuIcon from '@material-ui/icons/Menu';
 import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import BrowseField from '../../Browse/Containers/Browse';
 
 const drawerWidth = 200;
@@ -45,6 +46,7 @@ const styles = (theme: Theme) =>
     },
     menuItem: {
       color: theme.palette.common.white,
+      textDecoration: 'none',
       height: 24,
       boxSizing: 'content-box',
       width: 'auto',
@@ -95,9 +97,11 @@ class Header extends Component<HeaderProps, HeaderState> {
     return (
       <div className={classes.root}>
         <div className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap>
-            The Carrete
-          </Typography>
+          <Link to="/" className={classes.menuItem}>
+            <Typography variant="h6" color="inherit" noWrap>
+              The Carrete
+            </Typography>
+          </Link>
         </div>
         <Divider />
         <List>
@@ -107,7 +111,9 @@ class Header extends Component<HeaderProps, HeaderState> {
                 {index % 2 === 0 ? <Favorite /> : <PlaylistPlay />}
               </ListItemIcon>
               <ListItemText>
-                <Typography className={classes.menuItem}>{text}</Typography>
+                <Link to="/favorites" className={classes.menuItem}>
+                  <Typography className={classes.menuItem}>{text}</Typography>
+                </Link>
               </ListItemText>
             </ListItem>
           ))}

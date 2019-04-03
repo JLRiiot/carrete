@@ -16,8 +16,8 @@ import { Movie } from '../State/StoreModel';
 
 export interface PosterCardProps {
   movie: Movie;
-  favoritesIDsHack: number[];
-  addFavorite(id: number): void;
+  favoritesIDs: number[];
+  toggleFavorite(movie: Movie): void;
 }
 
 type PosterCardState = {};
@@ -90,13 +90,13 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
   // }
 
   render() {
-    let { movie, favoritesIDsHack } = this.props;
+    let { movie, favoritesIDs } = this.props;
     return (
       <Card className={'MuiNewsCard--02'}>
         <CardMedia
           component={'img'}
           className={'MuiCardMedia-root'}
-          src={` http://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
         />
         <CardContent className={'MuiCardContent-root'}>
           <Typography className={'MuiTypography--heading'} color={'inherit'} variant={'h3'} gutterBottom>
@@ -108,8 +108,8 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
           <Typography className={'MuiTypography--explore'} color={'inherit'} variant={'caption'}>
             <IconButton
               className={'MuiIconButton-root'}
-              color={favoritesIDsHack.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
-              onClick={() => this.props.addFavorite(movie.id)}
+              color={favoritesIDs.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
+              onClick={() => this.props.toggleFavorite(movie)}
             >
               <Icon>favorite</Icon>
             </IconButton>

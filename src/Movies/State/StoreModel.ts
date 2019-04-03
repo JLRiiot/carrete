@@ -4,6 +4,7 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   title: string;
+  name?: string;
   popularity: number;
   poster_path: string;
   original_language: string;
@@ -17,5 +18,6 @@ export interface Movie {
 
 export interface MoviesStore {
   movies: Movie[];
-  favoritesIDsHack: number[];
+  favoritesIDs: number[];
+  favoriteMovies: Movie[];
 }

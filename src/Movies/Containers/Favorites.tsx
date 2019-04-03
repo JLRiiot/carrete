@@ -1,27 +1,21 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import PosterCard, { PosterCardProps } from '../Components/PosterCard';
+import Favorites, { FavoritesProps } from '../Components/Favorites';
 import { toggleFavorite } from '../State/Actions';
 import { Movie, MoviesStore } from '../State/StoreModel';
 
-type StateProps = Pick<PosterCardProps, 'favoritesIDs'>;
-type DispatchProps = Pick<PosterCardProps, 'toggleFavorite'>;
-type OwnProps = Pick<PosterCardProps, 'movie'>;
+type StateProps = Pick<FavoritesProps, 'favoriteMovies'>;
+type DispatchProps = Pick<FavoritesProps, 'toggleFavorite'>;
 
 const mapStateToProps = ({ moviesReducer }: { moviesReducer: MoviesStore }): StateProps => ({
-  favoritesIDs: moviesReducer.favoritesIDs
+  favoriteMovies: moviesReducer.favoriteMovies
 });
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
   toggleFavorite: (movie: Movie) => dispatch(toggleFavorite(movie))
-});
-const mergeProps = (stateProps: StateProps, dispatchProps: DispatchProps, ownProps: OwnProps) => ({
-  ...stateProps,
-  ...dispatchProps,
-  ...ownProps
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(PosterCard);
+  mapDispatchToProps
+)(Favorites);

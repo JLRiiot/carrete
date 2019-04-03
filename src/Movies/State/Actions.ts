@@ -1,11 +1,6 @@
-import { Dispatch } from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import { DependencyInjectionContainer } from '../../Host/Application/DependencyInjection';
-import {
-  ADD_FAVORITE,
-  CLEAR_MOVIES,
-  LOAD_MOVIES,
-  REMOVE_FAVORITE
-  } from './Events';
+import { CLEAR_MOVIES, LOAD_MOVIES, TOGGLE_FAVORITE } from './Events';
 import { Movie } from './StoreModel';
 
 export type LoadMovies = {
@@ -17,14 +12,9 @@ export type ClearMovies = {
   type: CLEAR_MOVIES;
 };
 
-export type AddFavorite = {
-  type: ADD_FAVORITE;
-  payload: number;
-};
-
-export type RemoveFavorite = {
-  type: REMOVE_FAVORITE;
-  payload: number;
+export type ToggleFavorite = {
+  type: TOGGLE_FAVORITE;
+  payload: Movie;
 };
 
 export const loadMovies = (movies: Movie[]): LoadMovies => ({
@@ -36,9 +26,9 @@ export const clearMovies = (): ClearMovies => ({
   type: CLEAR_MOVIES
 });
 
-export const addFavorite = (id: number) => ({
-  type: ADD_FAVORITE,
-  payload: id
+export const toggleFavorite = (movie: Movie) => ({
+  type: TOGGLE_FAVORITE,
+  payload: movie
 });
 
 export const loadTrending = () => (
@@ -52,4 +42,4 @@ export const loadTrending = () => (
     .catch((error) => console.log(error));
 };
 
-export type MovieActions = LoadMovies | ClearMovies | AddFavorite | RemoveFavorite;
+export type MovieActions = LoadMovies | ClearMovies | ToggleFavorite;

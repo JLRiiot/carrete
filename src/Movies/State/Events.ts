@@ -3,7 +3,5 @@ export type LOAD_MOVIES = typeof LOAD_MOVIES;
 export const CLEAR_MOVIES = '[Movies] CLEAR_MOVIES';
 export type CLEAR_MOVIES = typeof CLEAR_MOVIES;
 
-export const ADD_FAVORITE = '[Movies] ADD_FAVORITE';
-export type ADD_FAVORITE = typeof ADD_FAVORITE;
-export const REMOVE_FAVORITE = '[Movies] REMOVE_FAVORITE';
-export type REMOVE_FAVORITE = typeof REMOVE_FAVORITE;
+export const TOGGLE_FAVORITE = '[Movies] TOGGLE_FAVORITE';
+export type TOGGLE_FAVORITE = typeof TOGGLE_FAVORITE;
