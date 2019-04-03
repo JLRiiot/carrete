@@ -24,7 +24,7 @@ import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
 import React, { Component } from 'react';
 import BrowseField from '../../Browse/Containers/Browse';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 const styles = (theme: Theme) =>
   createStyles({
     root: {
@@ -58,8 +58,11 @@ const styles = (theme: Theme) =>
       }
     },
     toolbar: {
+      display: 'flex',
+      alignItems: 'center',
       backgroundColor: fade(theme.palette.primary.main, 1),
-      paddingLeft: 0,
+      paddingLeft: theme.spacing.unit * 2,
+      color: theme.palette.common.white,
       ...theme.mixins.toolbar
     },
     drawerPaper: {
@@ -88,10 +91,14 @@ class Header extends Component<HeaderProps, HeaderState> {
     this.setState((state) => ({ mobileOpen: !state.mobileOpen }));
   };
   drawer() {
-    let { classes, theme } = this.props;
+    let { classes } = this.props;
     return (
       <div className={classes.root}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}>
+          <Typography variant="h6" color="inherit" noWrap>
+            The Carrete
+          </Typography>
+        </div>
         <Divider />
         <List>
           {['Favorites', 'Watch later'].map((text, index) => (

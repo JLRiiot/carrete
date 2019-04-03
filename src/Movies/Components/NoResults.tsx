@@ -24,14 +24,16 @@ const styles = (baseTheme: Theme) =>
     },
     text: {
       width: '100%',
-      paddingTop: '10px',
       lineHeight: 1
     },
     col1: {
       width: '20%'
     },
     col2: {
-      width: '80%'
+      width: '80%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }
   });
 
