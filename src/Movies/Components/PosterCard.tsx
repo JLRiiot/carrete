@@ -74,20 +74,12 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
     };
   }
 
-  //TODO: Implement a good logic here to prevent innecessary re-renders
-  // shouldComponentUpdate(nextProps: PosterCardProps, nextState: PosterCardState) {
-  //   let prevHack = this.props.favoritesIDsHack;
-  //   let nextHack = this.props.favoritesIDsHack;
+  shouldComponentUpdate(nextProps: PosterCardProps, nextState: PosterCardState) {
+    let prevContains = this.props.favoritesIDs.indexOf(this.props.movie.id) !== -1;
+    let nextContains = nextProps.favoritesIDs.indexOf(this.props.movie.id) !== -1;
 
-  //   console.log(prevHack.indexOf(this.props.movie.id));
-  //   console.log(nextHack.indexOf(this.props.movie.id));
-
-  //   return (
-  //     this.props.movie.id !== nextProps.movie.id ||
-  //     (this.props.movie.id === nextProps.movie.id &&
-  //       prevHack.indexOf(this.props.movie.id) !== nextHack.indexOf(this.props.movie.id))
-  //   );
-  // }
+    return (nextContains && !prevContains) || (!nextContains && prevContains);
+  }
 
   render() {
     let { movie, favoritesIDs } = this.props;

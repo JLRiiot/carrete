@@ -8,6 +8,18 @@ export const defaultState: MoviesStore = {
   favoriteMovies: []
 };
 
+const addItemToArray = <T>(item: T, original: T[]): T[] => {
+  let newArray = original.slice();
+  newArray.splice(newArray.length - 1, 0, item);
+  return newArray;
+};
+
+const removeItemFromArray = <T>(item: T, originalArray: T[]): T[] => {
+  let newArray = originalArray.slice();
+  newArray.splice(newArray.indexOf(item), 1);
+  return newArray;
+};
+
 export const moviesReducer = (state: MoviesStore = defaultState, action: MovieActions): MoviesStore => {
   switch (action.type) {
     case LOAD_MOVIES:
@@ -20,9 +32,11 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
       return {
         ...state,
         favoritesIDs: add
-          ? [...state.favoritesIDs, action.payload.id]
-          : state.favoritesIDs.splice(state.favoritesIDs.indexOf(index), 1),
-        favoriteMovies: add ? [...state.favoriteMovies, action.payload] : state.favoriteMovies.splice(index, 1)
+          ? addItemToArray(action.payload.id, state.favoritesIDs)
+          : removeItemFromArray(action.payload.id, state.favoritesIDs),
+        favoriteMovies: add
+          ? addItemToArray(action.payload, state.favoriteMovies)
+          : removeItemFromArray(action.payload, state.favoriteMovies)
       };
     default:
       return state;
