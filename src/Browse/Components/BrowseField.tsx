@@ -9,6 +9,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import SearchIcon from '@material-ui/icons/Search';
 import * as _ from 'lodash';
 import React, { ChangeEvent, Component } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -58,7 +59,7 @@ const styles = (theme: Theme) =>
     }
   });
 
-export interface BrowseFieldProps extends WithStyles<typeof styles> {
+export interface BrowseFieldProps extends WithStyles<typeof styles>, RouteComponentProps<{}> {
   handleSearch: Function;
   search: string;
 }
@@ -69,7 +70,10 @@ class BrowseField extends Component<BrowseFieldProps, BrowseFieldState> {
     super(props);
   }
 
-  delayedSearch = _.debounce((value: string) => this.props.handleSearch(value), 300);
+  delayedSearch = _.debounce((value: string) => {
+    this.props.history.push('/');
+    this.props.handleSearch(value);
+  }, 300);
 
   handleSearch = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => this.delayedSearch(event.target.value);
 
