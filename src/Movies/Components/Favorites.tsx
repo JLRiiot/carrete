@@ -3,11 +3,15 @@ import {
   GridList,
   GridListTile,
   GridListTileBar,
+  IconButton,
   Theme,
   WithStyles,
   withStyles
   } from '@material-ui/core';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import React, { Component } from 'react';
+import { RouteComponentProps } from 'react-router';
 import { Movie } from '../State/StoreModel';
 
 const styles = (baseTheme: Theme) =>
@@ -32,20 +36,33 @@ const styles = (baseTheme: Theme) =>
     }
   });
 
-export interface FavoritesProps extends WithStyles<typeof styles> {
+export interface FavoritesProps extends WithStyles<typeof styles>, RouteComponentProps<{}> {
   favoriteMovies: Movie[];
   toggleFavorite(movie: Movie): void;
+  favoritesIDs: number[];
+  movies: Movie[];
+  dirty: boolean;
+  loadTrending: Function;
 }
 interface FavoritesState {}
 class Favorites extends Component<FavoritesProps, FavoritesState> {
+  isFavorite = () => this.props.history.location.pathname.indexOf('favorite') >= 0;
+
+  componentDidMount() {
+    if (!this.isFavorite()) {
+      this.props.loadTrending();
+    }
+  }
   render() {
-    let { classes, favoriteMovies } = this.props;
+    let { classes, favoriteMovies, movies: searchMovies, favoritesIDs } = this.props;
+    let movies = this.isFavorite() ? favoriteMovies : searchMovies;
+
     return (
       <div className={classes.root}>
         <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-          {favoriteMovies &&
-            favoriteMovies.map((movie: Movie, index: number) => (
-              <GridListTile key={movie.id} cols={movie.popularity > 200 ? 2 : 1} rows={movie.popularity > 200 ? 2 : 1}>
+          {movies &&
+            movies.map((movie: Movie, index: number) => (
+              <GridListTile key={movie.id} cols={2} rows={movie.popularity > 200 ? 2 : 1}>
                 <img
                   src={`http://image.tmdb.org/t/p/w780${movie.poster_path}`}
                   alt={movie.title ? movie.title : movie.name}
@@ -54,6 +71,12 @@ class Favorites extends Component<FavoritesProps, FavoritesState> {
                   title={movie.title ? movie.title : movie.name}
                   titlePosition="top"
                   className={classes.titleBar}
+                  actionIcon={
+                    <IconButton className={classes.icon} onClick={() => this.props.toggleFavorite(movie)}>
+                      {favoritesIDs.indexOf(movie.id) < 0 ? <StarBorderIcon /> : <StarRoundedIcon />}
+                    </IconButton>
+                  }
+                  actionPosition="left"
                 />
               </GridListTile>
             ))}

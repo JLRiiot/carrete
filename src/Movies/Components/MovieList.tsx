@@ -1,41 +1,38 @@
 import {
   createStyles,
-  List,
-  Paper,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  IconButton,
   Theme,
-  Typography,
   WithStyles,
   withStyles
   } from '@material-ui/core';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import React, { Component, Fragment } from 'react';
 import PosterCard from '../Containers/Poster';
 import { Movie } from '../State/StoreModel';
-import ListLayout from './ListLayout';
-import NoResults from './NoResults';
 
-const styles = (theme: Theme) =>
+const styles = (baseTheme: Theme) =>
   createStyles({
-    paper: {
-      [theme.breakpoints.up('sm')]: {
-        paddingTop: theme.spacing.unit
-      }
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: baseTheme.palette.background.paper,
+      paddingTop: '60px'
     },
-    text: {
-      paddingTop: theme.spacing.unit * 2,
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2,
-      textAlign: 'center',
-      [theme.breakpoints.up('sm')]: {
-        display: 'none'
-      }
+    gridList: {
+      width: '100%',
+      transform: 'translateZ(0)'
     },
-    list: {
-      marginBottom: theme.spacing.unit * 2
+    titleBar: {
+      background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
     },
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3
+    icon: {
+      color: 'white'
     }
   });
 
@@ -52,26 +49,17 @@ class MovieList extends Component<MovieListProps, MovieListState> {
     this.props.loadTrending();
   }
   renderMovies(movies: Movie[]) {
-    return movies.map((movie) => (
-      <Fragment key={movie.id}>
-        <PosterCard movie={movie} />
-      </Fragment>
-    ));
+    return movies.map((movie) => <PosterCard key={movie.id} movie={movie} />);
   }
 
   render() {
     let { classes, movies, dirty } = this.props;
     return (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Paper square className={classes.paper}>
-          <Typography className={classes.text} variant="h5" gutterBottom>
-            The Carrete
-          </Typography>
-          {dirty && movies && !movies.length && <NoResults />}
-          {movies && movies.length > 0 && <ListLayout>{this.renderMovies(movies)}</ListLayout>}
-        </Paper>
-      </main>
+      <div className={classes.root}>
+        <GridList cellHeight={200} spacing={1} className={classes.gridList}>
+          {movies && this.renderMovies(movies)}
+        </GridList>
+      </div>
     );
   }
 }

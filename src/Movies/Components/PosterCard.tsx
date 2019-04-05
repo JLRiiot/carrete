@@ -2,19 +2,52 @@ import {
   Card,
   CardContent,
   CardMedia,
+  createStyles,
+  GridListTile,
+  GridListTileBar,
   Icon,
   IconButton,
   Link,
   Theme,
-  Typography
+  Typography,
+  WithStyles,
+  withStyles
   } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import * as _ from 'lodash';
 import React, { Component } from 'react';
 import { Movie } from '../State/StoreModel';
 
-export interface PosterCardProps {
+const styles = (baseTheme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: baseTheme.palette.background.paper,
+      paddingTop: '60px'
+    },
+    gridList: {
+      width: '100%',
+      transform: 'translateZ(0)'
+    },
+    titleBar: {
+      background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
+    },
+    icon: {
+      color: 'white'
+    },
+    img: {
+      height: 'auto',
+      width: '100%'
+    }
+  });
+
+export interface PosterCardProps extends WithStyles<typeof styles> {
   movie: Movie;
   favoritesIDs: number[];
   toggleFavorite(movie: Movie): void;
@@ -22,58 +55,7 @@ export interface PosterCardProps {
 
 type PosterCardState = {};
 
-export default class PosterCard extends Component<PosterCardProps, PosterCardState> {
-  static getThemeOverride(baseTheme: Theme): { MuiCard: Partial<Record<'root', CSSProperties>> } {
-    return {
-      MuiCard: {
-        root: {
-          '&.MuiNewsCard--02': {
-            maxWidth: 304,
-            margin: 'auto',
-            marginBottom: baseTheme.spacing.unit * 3,
-            position: 'relative',
-            transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-            boxShadow: '0 16px 40px -12.125px rgba(0,0,0,0.3)',
-            borderRadius: 0,
-            '&:hover': {
-              '& .MuiTypography--explore': {
-                transform: 'scale(1.2)'
-              }
-            },
-            '& button': {
-              marginLeft: 0
-            },
-            '& .MuiCardMedia-root': {
-              height: '100%'
-            },
-            '& .MuiCardContent-root': {
-              position: 'absolute',
-              height: '100%',
-              bottom: 0,
-              padding: baseTheme.spacing.unit * 3,
-              color: baseTheme.palette.common.white,
-              backgroundColor: fade(baseTheme.palette.primary.dark, 0.85),
-              textAlign: 'center',
-              '& .MuiIconButton-root': {
-                padding: baseTheme.spacing.unit
-              },
-              '& .MuiTypography--subheading': {
-                lineHeight: 1.8,
-                letterSpacing: 0.5,
-                marginBottom: '40%'
-              },
-              '& .MuiTypography--explore': {
-                marginBottom: 16,
-                transition: '0.3s cubic-bezier(.47,1.64,.41,.8)',
-                letterSpacing: 2
-              }
-            }
-          }
-        }
-      }
-    };
-  }
-
+class PosterCard extends Component<PosterCardProps, PosterCardState> {
   shouldComponentUpdate(nextProps: PosterCardProps, nextState: PosterCardState) {
     let prevContains = this.props.favoritesIDs.indexOf(this.props.movie.id) !== -1;
     let nextContains = nextProps.favoritesIDs.indexOf(this.props.movie.id) !== -1;
@@ -82,35 +64,27 @@ export default class PosterCard extends Component<PosterCardProps, PosterCardSta
   }
 
   render() {
-    let { movie, favoritesIDs } = this.props;
+    let { movie, favoritesIDs, classes } = this.props;
     return (
-      <Card className={'MuiNewsCard--02'}>
-        <CardMedia
-          component={'img'}
-          className={'MuiCardMedia-root'}
-          src={`http://image.tmdb.org/t/p/w500${movie.poster_path}`}
+      <GridListTile key={movie.id} cols={movie.popularity > 200 ? 2 : 1} rows={movie.popularity > 200 ? 2 : 1}>
+        <img
+          className={classes.img}
+          src={`http://image.tmdb.org/t/p/w780${movie.poster_path}`}
+          alt={movie.title ? movie.title : movie.name}
         />
-        <CardContent className={'MuiCardContent-root'}>
-          <Typography className={'MuiTypography--heading'} color={'inherit'} variant={'h3'} gutterBottom>
-            {_.truncate(movie.title, { length: 20 })}
-          </Typography>
-          <Typography className={'MuiTypography--subheading'} color={'inherit'}>
-            {_.truncate(movie.overview, { length: 150 })}
-          </Typography>
-          <Typography className={'MuiTypography--explore'} color={'inherit'} variant={'caption'}>
-            <IconButton
-              className={'MuiIconButton-root'}
-              color={favoritesIDs.indexOf(movie.id) < 0 ? 'inherit' : 'secondary'}
-              onClick={() => this.props.toggleFavorite(movie)}
-            >
-              <Icon>favorite</Icon>
+        <GridListTileBar
+          title={movie.title ? movie.title : movie.name}
+          titlePosition="top"
+          className={classes.titleBar}
+          actionIcon={
+            <IconButton className={classes.icon} onClick={() => this.props.toggleFavorite(movie)}>
+              {favoritesIDs.indexOf(movie.id) < 0 ? <StarBorderIcon /> : <StarRoundedIcon />}
             </IconButton>
-            <Link color={'inherit'} underline={'none'}>
-              {'<< Watch later >>'}
-            </Link>
-          </Typography>
-        </CardContent>
-      </Card>
+          }
+          actionPosition="left"
+        />
+      </GridListTile>
     );
   }
 }
+export default withStyles(styles)(PosterCard);

@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from '../../Header/Components/Header';
-import Favorites from '../../Movies/Containers/Favorites';
+import MovieGrid from '../../Movies/Containers/Favorites';
 import Movies from '../../Movies/Containers/Movies';
 
 const styles = (theme: Theme) =>
@@ -26,8 +26,8 @@ function App(props: Props) {
       <div className={classes.root}>
         <CssBaseline />
         <Header />
-        <Route path={'/'} exact component={Movies} />
-        <Route path={'/favorites'} component={Favorites} />
+        <Route path={'/'} exact component={MovieGrid} />
+        <Route path={'/favorites'} component={MovieGrid} />
       </div>
     </Router>
   );

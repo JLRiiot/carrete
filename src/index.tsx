@@ -37,9 +37,6 @@ const theme = (muiBaseTheme: Theme) =>
     },
     typography: {
       useNextVariants: true
-    },
-    overrides: {
-      ...PosterCard.getThemeOverride(muiBaseTheme)
     }
   });
 
@@ -54,7 +51,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme(muiBaseTheme)}>
+    <MuiThemeProvider theme={muiBaseTheme}>
       <App />
     </MuiThemeProvider>
   </Provider>,
