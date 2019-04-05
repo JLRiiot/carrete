@@ -58,7 +58,7 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
     case LOAD_TRENDING_MOVIES:
       return { ...state, trendingMovies: action.payload };
     case TOGGLE_WATCH_LATER:
-      const indexWL = state.favoritesIndex.indexOf(action.payload.id),
+      const indexWL = state.watchLaterIndex.indexOf(action.payload.id),
         addWL = indexWL < 0;
 
       return {
