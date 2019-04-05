@@ -68,6 +68,11 @@ export const toggleFavorite = (movie: Movie) => ({
   payload: movie
 });
 
+export const toggleWatchLater = (movie: Movie): ToggleWatchLater => ({
+  type: TOGGLE_WATCH_LATER,
+  payload: movie
+});
+
 export const loadTrendingRequest = () => (
   dispatch: Dispatch,
   getState: Function,
@@ -97,4 +102,5 @@ export type MovieActions =
   | ToggleFavorite
   | LoadFavoriteMovies
   | LoadTrendingMovies
-  | LoadWatchLater;
+  | LoadWatchLater
+  | ToggleWatchLater;

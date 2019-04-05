@@ -5,7 +5,8 @@ import {
   LOAD_SEARCH_RESULTS,
   LOAD_TRENDING_MOVIES,
   LOAD_WATCH_LATER,
-  TOGGLE_FAVORITE
+  TOGGLE_FAVORITE,
+  TOGGLE_WATCH_LATER
   } from './Events';
 import { Movie, MoviesStore } from './StoreModel';
 
@@ -56,6 +57,23 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
       return { ...state, watchLaterMovies: action.payload };
     case LOAD_TRENDING_MOVIES:
       return { ...state, trendingMovies: action.payload };
+    case TOGGLE_WATCH_LATER:
+      const indexWL = state.favoritesIndex.indexOf(action.payload.id),
+        addWL = indexWL < 0;
+
+      return {
+        ...state,
+        watchLaterIndex: addWL
+          ? addItemToArray(action.payload.id, state.watchLaterIndex)
+          : removeItemFromArray(action.payload.id, state.watchLaterIndex, (value) => value !== action.payload.id),
+        watchLaterMovies: addWL
+          ? addItemToArray(action.payload, state.watchLaterMovies)
+          : removeItemFromArray(
+              action.payload,
+              state.watchLaterMovies,
+              (value: Movie) => value.id !== action.payload.id
+            )
+      };
 
     default:
       return state;
