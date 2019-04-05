@@ -84,12 +84,14 @@ export const loadTrendingRequest = () => (
     .catch((error) => console.log(error));
 };
 
+//TODO: Add Favorites to Local Storage
 export const loadFavoriteMoviesRequest = () => (
   dispatch: Dispatch,
   getState: Function,
   { container }: { container: DependencyInjectionContainer }
 ) => {};
 
+//TODO: Add Watch Later to Local Storage
 export const loadWatchLaterRequest = () => (
   dispatch: Dispatch,
   getState: Function,
