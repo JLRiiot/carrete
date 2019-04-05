@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Dispatch } from 'redux';
 import { DependencyInjectionContainer } from '../../Host/Application/DependencyInjection';
-import { clearMovies, loadMovies } from '../../Movies/State/Actions';
+import { clearMovies, loadSearchResults } from '../../Movies/State/Actions';
 import { Movie } from '../../Movies/State/StoreModel';
 import { SET_SEARCH } from './Events';
 
@@ -25,7 +25,7 @@ export const delayedSearch = (search: string) => (
     //TODO: get rid of (result: any) => ... by creating an interface for API response
     container
       .getMovies(search)
-      .then((result: any) => dispatch(loadMovies(result.results)))
+      .then((result: any) => dispatch(loadSearchResults(result.results)))
       .catch((error) => console.error(error));
   } else {
     dispatch(clearMovies());

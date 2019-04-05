@@ -1,7 +1,16 @@
-export const LOAD_MOVIES = '[Movies] LOAD_MOVIES';
-export type LOAD_MOVIES = typeof LOAD_MOVIES;
-export const CLEAR_MOVIES = '[Movies] CLEAR_MOVIES';
-export type CLEAR_MOVIES = typeof CLEAR_MOVIES;
+export const LOAD_SEARCH_RESULTS = '[Movies] LOAD_SEARCH_RESULTS';
+export type LOAD_SEARCH_RESULTS = typeof LOAD_SEARCH_RESULTS;
+export const CLEAR_SEARCH_RESULTS = '[Movies] CLEAR_SEARCH_RESULTS';
+export type CLEAR_SEARCH_RESULTS = typeof CLEAR_SEARCH_RESULTS;
 
 export const TOGGLE_FAVORITE = '[Movies] TOGGLE_FAVORITE';
 export type TOGGLE_FAVORITE = typeof TOGGLE_FAVORITE;
+export const TOGGLE_WATCH_LATER = '[Movies] TOGGLE_WATCH_LATER';
+export type TOGGLE_WATCH_LATER = typeof TOGGLE_WATCH_LATER;
+
+export const LOAD_FAVORITE_MOVIES = '[Movies] LOAD_FAVORITE_MOVIES';
+export type LOAD_FAVORITE_MOVIES = typeof LOAD_FAVORITE_MOVIES;
+export const LOAD_WATCH_LATER = '[Movies] LOAD_WATCH_LATER';
+export type LOAD_WATCH_LATER = typeof LOAD_WATCH_LATER;
+export const LOAD_TRENDING_MOVIES = '[Movies] LOAD_TRENDING_MOVIES';
+export type LOAD_TRENDING_MOVIES = typeof LOAD_TRENDING_MOVIES;

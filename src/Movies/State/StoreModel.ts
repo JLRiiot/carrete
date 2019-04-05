@@ -17,7 +17,10 @@ export interface Movie {
 }
 
 export interface MoviesStore {
-  movies: Movie[];
-  favoritesIDs: number[];
+  searchResults: Movie[];
+  favoritesIndex: number[];
   favoriteMovies: Movie[];
+  watchLaterIndex: number[];
+  watchLaterMovies: Movie[];
+  trendingMovies: Movie[];
 }

@@ -21,6 +21,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Favorite from '@material-ui/icons/Favorite';
 import MenuIcon from '@material-ui/icons/Menu';
 import PlaylistPlay from '@material-ui/icons/PlaylistPlay';
+import TrendingUp from '@material-ui/icons/TrendingUp';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BrowseField from '../../Browse/Containers/Browse';
@@ -83,6 +84,23 @@ interface HeaderState {
   mobileOpen: boolean;
 }
 
+const linkData = [
+  {
+    title: 'Favorites',
+    url: '/favorites',
+    icon: <Favorite />
+  },
+  {
+    title: 'Watch later',
+    url: '/watchlater',
+    icon: <PlaylistPlay />
+  },
+  {
+    title: 'Trending',
+    url: '/trending',
+    icon: <TrendingUp />
+  }
+];
 class Header extends Component<HeaderProps, HeaderState> {
   constructor(props: HeaderProps) {
     super(props);
@@ -105,14 +123,12 @@ class Header extends Component<HeaderProps, HeaderState> {
         </div>
         <Divider />
         <List>
-          {['Favorites', 'Watch later'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon className={classes.menuItem}>
-                {index % 2 === 0 ? <Favorite /> : <PlaylistPlay />}
-              </ListItemIcon>
+          {linkData.map((link, index) => (
+            <ListItem button key={link.url}>
+              <ListItemIcon className={classes.menuItem}>{link.icon}</ListItemIcon>
               <ListItemText>
-                <Link to="/favorites" className={classes.menuItem}>
-                  <Typography className={classes.menuItem}>{text}</Typography>
+                <Link to={link.url} className={classes.menuItem}>
+                  <Typography className={classes.menuItem}>{link.title}</Typography>
                 </Link>
               </ListItemText>
             </ListItem>

@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import Favorites, { FavoritesProps } from '../Components/Favorites';
-import { loadFavoriteMoviesRequest } from '../State/Actions';
+import TrendingMovies, { TrendingMoviesProps } from '../Components/TrendingMovies';
+import { loadTrendingRequest } from '../State/Actions';
 import { MoviesStore } from '../State/StoreModel';
 
-type StateProps = Pick<FavoritesProps, 'favoriteMovies'>;
-type DispatchProps = Pick<FavoritesProps, 'loadFavorites'>;
+type StateProps = Pick<TrendingMoviesProps, 'trendingMovies'>;
+type DispatchProps = Pick<TrendingMoviesProps, 'loadTrending'>;
 
 const mapStateToProps = ({ moviesReducer }: { moviesReducer: MoviesStore }): StateProps => ({
-  favoriteMovies: moviesReducer.favoriteMovies
+  trendingMovies: moviesReducer.trendingMovies
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<{}, {}, any>): DispatchProps => ({
-  loadFavorites: () => dispatch(loadFavoriteMoviesRequest())
+  loadTrending: () => dispatch(loadTrendingRequest())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Favorites);
+)(TrendingMovies);

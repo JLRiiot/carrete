@@ -1,7 +1,7 @@
 import configureMockStore, { MockStoreCreator } from 'redux-mock-store';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { fake, stub } from 'sinon';
-import { LOAD_MOVIES } from '../../Movies/State/Events';
+import { LOAD_SEARCH_RESULTS } from '../../Movies/State/Events';
 import { defaultState as defaultMoviesState } from '../../Movies/State/Reducer';
 import { delayedSearch, setSearch } from './Actions';
 import { SET_SEARCH } from './Events';
@@ -37,7 +37,7 @@ describe('async actions', () => {
         payload: search
       },
       {
-        type: LOAD_MOVIES,
+        type: LOAD_SEARCH_RESULTS,
         payload: mockData.results
       }
     ];

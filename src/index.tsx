@@ -8,7 +8,6 @@ import thunk from 'redux-thunk';
 import { dependencyInjectionContainer } from './Host/Application/DependencyInjection';
 import App from './Host/Components/App';
 import rootReducer from './Host/State/RootReducer';
-import PosterCard from './Movies/Components/PosterCard';
 import * as serviceWorker from './serviceWorker';
 
 const muiBaseTheme = createMuiTheme({
@@ -24,21 +23,6 @@ const muiBaseTheme = createMuiTheme({
     useNextVariants: true
   }
 });
-
-const theme = (muiBaseTheme: Theme) =>
-  createMuiTheme({
-    palette: {
-      primary: {
-        main: '#263238'
-      },
-      secondary: {
-        main: '#3949ab'
-      }
-    },
-    typography: {
-      useNextVariants: true
-    }
-  });
 
 let store = createStore(rootReducer, applyMiddleware(thunk));
 

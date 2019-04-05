@@ -14,6 +14,9 @@ import React, { Component, Fragment } from 'react';
 
 const styles = (baseTheme: Theme) =>
   createStyles({
+    root: {
+      paddingTop: baseTheme.spacing.unit * 10
+    },
     imgContainer: {
       width: '100%',
       height: '100%'
@@ -44,7 +47,7 @@ class NoResults extends Component<NoResultsProps, NoResultsState> {
   render() {
     let { classes } = this.props;
     return (
-      <Grid container>
+      <Grid container className={classes.root}>
         <Grid item className={classes.col1}>
           <Icon className={classes.imgContainer}>
             <SvgIcon className={classes.img}>

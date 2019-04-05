@@ -71,7 +71,7 @@ class BrowseField extends Component<BrowseFieldProps, BrowseFieldState> {
   }
 
   delayedSearch = _.debounce((value: string) => {
-    this.props.history.push('/');
+    this.props.history.push('/search');
     this.props.handleSearch(value);
   }, 300);
 
