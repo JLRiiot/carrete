@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/JLRiiot/carrete/precache-manifest.d69ed6214ec4d8b1642066805c7705fa.js"
+  "/carrete/precache-manifest.69101e1d6289525af6ad07be6ae4ad41.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/JLRiiot/carrete/index.html", {
+workbox.routing.registerNavigationRoute("/carrete/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
