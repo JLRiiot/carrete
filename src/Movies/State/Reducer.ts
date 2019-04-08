@@ -2,9 +2,11 @@ import { MovieActions } from './Actions';
 import {
   CLEAR_SEARCH_RESULTS,
   LOAD_FAVORITE_MOVIES,
+  LOAD_FAVORITE_MOVIES_INDEX,
   LOAD_SEARCH_RESULTS,
   LOAD_TRENDING_MOVIES,
   LOAD_WATCH_LATER,
+  LOAD_WATCH_LATER_INDEX,
   TOGGLE_FAVORITE,
   TOGGLE_WATCH_LATER
   } from './Events';
@@ -74,6 +76,10 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
               (value: Movie) => value.id !== action.payload.id
             )
       };
+    case LOAD_FAVORITE_MOVIES_INDEX:
+      return { ...state, favoritesIndex: action.payload };
+    case LOAD_WATCH_LATER_INDEX:
+      return { ...state, watchLaterIndex: action.payload };
 
     default:
       return state;

@@ -3,7 +3,6 @@ import { Movie } from '../State/StoreModel';
 
 export default ({ api }: { api: MovieApi }) => async (search: string, page: number = 1): Promise<Movie[]> => {
   if (search === '') {
-    console.log(search);
     return Promise.resolve([]);
   }
 
