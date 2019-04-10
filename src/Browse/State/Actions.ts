@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { Dispatch } from 'redux';
 import { DependencyInjectionContainer } from '../../Host/Application/DependencyInjection';
 import { clearMovies, loadSearchResults } from '../../Movies/State/Actions';
-import { Movie } from '../../Movies/State/StoreModel';
 import { SET_SEARCH } from './Events';
 
 export type SetSearch = {
