@@ -1,3 +1,4 @@
+import { addItemToArray, removeItemFromArray } from '../../Util';
 import { MovieActions } from './Actions';
 import {
   CLEAR_SEARCH_RESULTS,
@@ -13,26 +14,12 @@ import {
 import { Movie, MoviesStore } from './StoreModel';
 
 export const defaultState: MoviesStore = {
-  searchResults: [],
-  favoritesIndex: [],
   favoriteMovies: [],
+  favoritesIndex: [],
+  searchResults: [],
+  trendingMovies: [],
   watchLaterIndex: [],
-  watchLaterMovies: [],
-  trendingMovies: []
-};
-
-const addItemToArray = <T>(item: T, original: T[]): T[] => {
-  let newArray = original.slice();
-  newArray.splice(newArray.length - 1, 0, item);
-  return newArray;
-};
-
-const removeItemFromArray = <T>(
-  item: T,
-  originalArray: T[],
-  matchFunction: (value: T, index?: number, array?: T[]) => boolean
-): T[] => {
-  return originalArray.filter(matchFunction);
+  watchLaterMovies: []
 };
 
 export const moviesReducer = (state: MoviesStore = defaultState, action: MovieActions): MoviesStore => {
@@ -42,16 +29,16 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
     case CLEAR_SEARCH_RESULTS:
       return { ...state, searchResults: [] };
     case TOGGLE_FAVORITE:
-      const index = state.favoritesIndex.indexOf(action.payload.id),
-        add = index < 0;
+      const index = state.favoritesIndex.indexOf(action.payload.id);
+      const add = index < 0;
       return {
         ...state,
-        favoritesIndex: add
-          ? addItemToArray(action.payload.id, state.favoritesIndex)
-          : removeItemFromArray(action.payload.id, state.favoritesIndex, (value) => value !== action.payload.id),
         favoriteMovies: add
           ? addItemToArray(action.payload, state.favoriteMovies)
-          : removeItemFromArray(action.payload, state.favoriteMovies, (value: Movie) => value.id !== action.payload.id)
+          : removeItemFromArray(action.payload, state.favoriteMovies, (value: Movie) => value.id !== action.payload.id),
+        favoritesIndex: add
+          ? addItemToArray(action.payload.id, state.favoritesIndex)
+          : removeItemFromArray(action.payload.id, state.favoritesIndex, (value) => value !== action.payload.id)
       };
     case LOAD_FAVORITE_MOVIES:
       return { ...state, favoriteMovies: action.payload };
@@ -60,8 +47,8 @@ export const moviesReducer = (state: MoviesStore = defaultState, action: MovieAc
     case LOAD_TRENDING_MOVIES:
       return { ...state, trendingMovies: action.payload };
     case TOGGLE_WATCH_LATER:
-      const indexWL = state.watchLaterIndex.indexOf(action.payload.id),
-        addWL = indexWL < 0;
+      const indexWL = state.watchLaterIndex.indexOf(action.payload.id);
+      const addWL = indexWL < 0;
 
       return {
         ...state,

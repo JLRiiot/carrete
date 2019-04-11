@@ -52,6 +52,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
     "sinon": "^7.3.1",
+    "sonarqube-scanner": "^2.4.0",
     "tslint": "^5.15.0",
     "tslint-sonarts": "^1.9.0"
   }
